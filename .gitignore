@@ -1,0 +1,104 @@
+
+# -------------------------------
+# Build outputs
+# -------------------------------
+main
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+
+# Common build directories
+build/
+bin/
+lib/
+dist/
+out/
+Debug/
+Release/
+x64/
+x86/
+
+# Raylib generated files
+*.rres
+*.png    # if you generate screenshots or textures
+*.wav    # if you generate audio assets
+*.mp3
+*.ttf
+
+# -------------------------------
+# Makefile artifacts
+# -------------------------------
+*.d      # dependency files (if using -MMD)
+
+# -------------------------------
+# CMake artifacts (if used later)
+# -------------------------------
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+*.cmake
+Makefile
+cmake-build*/
+
+# -------------------------------
+# IDE / Editor files
+# -------------------------------
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# CLion / JetBrains
+.idea/
+*.iml
+
+# Vim / Neovim
+*.swp
+*.swo
+*.swx
+*.tmp
+.tags
+.tagfiles
+
+# clangd
+.cache/
+.clangd/
+
+# -------------------------------
+# macOS system files
+# -------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# -------------------------------
+# Logs
+# -------------------------------
+*.log
+logs/
+log/
+
+# -------------------------------
+# Environment / config
+# -------------------------------
+.env
+.env.*
+*.local
+
+# -------------------------------
+# Backup files
+# -------------------------------
+*.bak
+*.old
+*~
+# autosave
+# -------------------------------
