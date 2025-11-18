@@ -1,4 +1,8 @@
 #include "raylib.h"
+#include <vector>
+
+const int screenWidth = 500;
+const int screenHeight = 600;
 
 struct Ball {
   Vector2 pos;
@@ -7,26 +11,69 @@ struct Ball {
   float radius = 5.0f;
 };
 
-struct Brick {};
-struct Player {};
+struct Brick {
+  Rectangle rect;
+  Color color;
+  float w = 50.0f;
+  float h = 20.0f;
+};
 
-void GameStartup() {}
+struct Player {
+  Rectangle rect;
+  float velocity = 250.0f;
+  int score = 0;
+  float w = 75.0f;
+  float h = 10.0f;
+};
 
-void GameUpdate() {}
+Texture2D texBackground;
+Player player;
+Ball ball;
 
-void GameRender() {}
+std::vector<Brick> bricks;
+
+void GameStartup() {
+  Image imgBackground = LoadImage("assets/background.png");
+  texBackground = LoadTextureFromImage(imgBackground);
+  UnloadImage(imgBackground);
+
+  player.rect = Rectangle{250.0f, 540.0f, player.w, player.h};
+  player.score = 0;
+}
+
+void GameUpdate() {
+  float frameTime = GetFrameTime();
+
+  if (IsKeyDown(KEY_LEFT)) {
+    player.rect.x = player.rect.x - (player.velocity * frameTime);
+  }
+
+  if (IsKeyDown(KEY_RIGHT)) {
+    player.rect.x = player.rect.x + (player.velocity * frameTime);
+  }
+}
+
+void GameRender() {
+  DrawTexture(texBackground, 0, 0, RAYWHITE);
+  Brick brick;
+
+  DrawRectangle(player.rect.x, player.rect.y, player.rect.width,
+                player.rect.height, YELLOW);
+}
 
 void GameShutDown() {}
 
 int main() {
 
-  const int screenWidth = 700;
-  const int screenHeight = 600;
+  InitWindow(screenWidth, screenHeight, "Raylib :: BreakOut");
+  SetTargetFPS(60);
+  GameStartup();
 
   while (!WindowShouldClose()) {
+    GameUpdate();
     BeginDrawing();
-    ClearBackground(RAYWHITE);
-    DrawText("RAYYYLIB", 190, 200, 20, LIGHTGRAY);
+    ClearBackground(BLUE);
+    GameRender();
     EndDrawing();
   }
 
