@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include <cstdlib>
+#include <string>
 #include <vector>
 
 const int screenWidth = 500;
@@ -55,7 +56,7 @@ void GameStartup() {
 
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
-      newBrick.rect = Rectangle{float(40 + (i * 55)), float(50 + (i * 26)),
+      newBrick.rect = Rectangle{float(40 + (i * 55)), float(50 + (j * 26)),
                                 newBrick.w, newBrick.h
 
       };
@@ -76,6 +77,9 @@ void GameUpdate() {
   if (IsKeyDown(KEY_RIGHT)) {
     player.rect.x = player.rect.x + (player.velocity * frameTime);
   }
+
+  ball.pos.x = ball.pos.x + ((ball.velocity * ball.acceleration.x) * frameTime);
+  ball.pos.y = ball.pos.y + ((ball.velocity * ball.acceleration.y) * frameTime);
 }
 
 void GameRender() {
@@ -95,6 +99,12 @@ void GameRender() {
   // this is the player aka the yellow bar
   DrawRectangle(player.rect.x, player.rect.y, player.rect.width,
                 player.rect.height, YELLOW);
+
+  std::string sScore = std::to_string(player.score);
+  std::string temp1 = "SCORE: ";
+  std::string temp2 = temp1 + sScore;
+  char const *text = temp2.c_str();
+  DrawText(text, 10, 10, 30, YELLOW);
 }
 
 void GameShutDown() {}
