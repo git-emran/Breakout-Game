@@ -45,7 +45,7 @@ void GameStartup() {
   player.score = 0;
 
   // ball data
-  ball.pos = Vector2{300, 200};
+  ball.pos = Vector2{300, 300};
   ball.velocity = 300.0f;
 
   std::vector<Color> COLORS{RED,     ORANGE, BROWN,   PURPLE,
@@ -61,6 +61,7 @@ void GameStartup() {
       };
 
       newBrick.color = COLORS[rand() % COLORS.size()];
+      bricks.push_back(newBrick);
     }
   }
 }
