@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include <cstdlib>
 #include <vector>
 
 const int screenWidth = 500;
@@ -33,12 +34,35 @@ Ball ball;
 std::vector<Brick> bricks;
 
 void GameStartup() {
+
+  // Image data
   Image imgBackground = LoadImage("assets/background.png");
   texBackground = LoadTextureFromImage(imgBackground);
   UnloadImage(imgBackground);
 
+  // loading the paddle data
   player.rect = Rectangle{250.0f, 540.0f, player.w, player.h};
   player.score = 0;
+
+  // ball data
+  ball.pos = Vector2{300, 200};
+  ball.velocity = 300.0f;
+
+  std::vector<Color> COLORS{RED,     ORANGE, BROWN,   PURPLE,
+                            MAGENTA, PINK,   DARKGRAY};
+
+  Brick newBrick;
+
+  for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 8; j++) {
+      newBrick.rect = Rectangle{float(40 + (i * 55)), float(50 + (i * 26)),
+                                newBrick.w, newBrick.h
+
+      };
+
+      newBrick.color = COLORS[rand() % COLORS.size()];
+    }
+  }
 }
 
 void GameUpdate() {
@@ -55,8 +79,19 @@ void GameUpdate() {
 
 void GameRender() {
   DrawTexture(texBackground, 0, 0, RAYWHITE);
-  Brick brick;
 
+  // these are the bricks
+  Brick brick;
+  for (int i = 0; i < bricks.size(); i++) {
+    brick = bricks[i];
+    DrawRectangle(brick.rect.x, brick.rect.y, brick.rect.width,
+                  brick.rect.height, brick.color);
+  }
+
+  // Render the ball
+  DrawCircle(ball.pos.x, ball.pos.y, ball.radius, RAYWHITE);
+
+  // this is the player aka the yellow bar
   DrawRectangle(player.rect.x, player.rect.y, player.rect.width,
                 player.rect.height, YELLOW);
 }
