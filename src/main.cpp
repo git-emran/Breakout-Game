@@ -105,6 +105,15 @@ void GameUpdate() {
     ball.acceleration.y = ball.acceleration.y * -1;
   }
 
+  // Check collision between wall and player
+  if (player.rect.x < 0) {
+    player.rect.x = 0;
+  }
+
+  if (player.rect.x > (screenWidth - player.rect.width)) {
+    player.rect.x = (screenWidth - player.rect.width);
+  }
+
   // Checking the collision between ball and player
   if (CheckCollisionCircleRec(ball.pos, ball.radius, player.rect)) {
     ball.acceleration.x = ball.acceleration.x * -1;
