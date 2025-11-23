@@ -80,6 +80,36 @@ void GameUpdate() {
 
   ball.pos.x = ball.pos.x + ((ball.velocity * ball.acceleration.x) * frameTime);
   ball.pos.y = ball.pos.y + ((ball.velocity * ball.acceleration.y) * frameTime);
+
+  // check collision between each brick and the ball
+  Brick brick;
+  int random;
+
+  for (int i = 0; i < bricks.size(); i++) {
+    brick = bricks[i];
+    if (CheckCollisionCircleRec(ball.pos, ball.radius, brick.rect)) {
+      ball.acceleration.y = ball.acceleration.y * -1;
+      bricks.erase(bricks.begin() + i);
+      player.score = player.score + 10;
+      random = rand() % 2;
+      break;
+    }
+  }
+
+  // Check collision between walls and ball
+  if (ball.pos.x > screenWidth || ball.pos.x < 10) {
+    ball.acceleration.x = ball.acceleration.x * -1;
+  }
+
+  if (ball.pos.y > screenHeight || ball.pos.y < 10) {
+    ball.acceleration.y = ball.acceleration.y * -1;
+  }
+
+  // Checking the collision between ball and player
+  if (CheckCollisionCircleRec(ball.pos, ball.radius, player.rect)) {
+    ball.acceleration.x = ball.acceleration.x * -1;
+    ball.acceleration.y = ball.acceleration.y * -1;
+  }
 }
 
 void GameRender() {
